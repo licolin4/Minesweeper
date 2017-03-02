@@ -31,18 +31,15 @@ void setup ()
 }
 public void setBombs()
 {
-
-   for(int i = 0; i < NUM_COLS; i++)
-   {
-   int row = (int)(Math.random())*NUM_ROWS;
-   int col = (int)(Math.random())*NUM_COLS;
+    for(int i = 0;i<=20;i++)
+    {
+     int row = (int)(Math.random()*NUM_ROWS);
+     int col = (int)(Math.random()*NUM_COLS);
      if(!bombs.contains(buttons[row][col]))
-     {
-     bombs.add(buttons[row][col]);
-     }
-    
-   }  
+        bombs.add(buttons[row][col]);
+    }  
 }
+
 
 public void draw ()
 {
@@ -97,6 +94,33 @@ public class MSButton
     {
         clicked = true;
         //your code here
+        if(mouseButton==RIGHT)
+        {
+            marked = !marked;
+        }
+        else if (bombs.contains(this)) {
+            displayLosingMessage();
+        }
+        else if (countBombs(r,c)>0) {
+            setLabel(""+countBombs(r,c));           
+        }
+        else
+        {
+            if(isValid(r+1,c) && buttons[r+1][c].isClicked()==false)
+                buttons[r+1][c].mousePressed();
+        }
+        {
+            if(isValid(r,c+1) && buttons[r][c+1].isClicked()==false)
+                buttons[r][c+1].mousePressed();
+        }
+        {
+            if(isValid(r-1,c) && buttons[r-1][c].isClicked()==false)
+                buttons[r-1][c].mousePressed();
+        }
+        {
+            if(isValid(r,c-1) && buttons[r][c-1].isClicked()==false)
+                buttons[r][c-1].mousePressed();
+        }
     }
 
     public void draw () 
@@ -109,7 +133,6 @@ public class MSButton
             fill( 200 );
         else 
             fill( 100 );
-
         rect(x, y, width, height);
         fill(0);
         text(label,x+width/2,y+height/2);
@@ -121,12 +144,48 @@ public class MSButton
     public boolean isValid(int r, int c)
     {
         //your code here
+        if(r<20&&r>=0&&c<20&&c>=0)
+        {
+            return true;
+        }
         return false;
     }
     public int countBombs(int row, int col)
     {
         int numBombs = 0;
         //your code here
+        if(isValid(row,col+1) && isMarked() == true)
+        {
+            numBombs++;
+        }
+        if(isValid(row+1,col) && isMarked() == true)
+        {
+            numBombs++;
+        }
+        if(isValid(row-1,col) && isMarked() == true)
+        {
+            numBombs++;
+        }
+        if(isValid(row,col-1) && isMarked() == true)
+        {
+            numBombs++;
+        }
+        if(isValid(row-1,col-1) && isMarked() == true)
+        {
+            numBombs++;
+        }
+        if(isValid(row+1,col+1) && isMarked() == true)
+        {
+            numBombs++;
+        }
+        if(isValid(row+1,col-1) && isMarked() == true)
+        {
+            numBombs++;
+        }
+        if(isValid(row-1,col+1) && isMarked() == true)
+        {
+            numBombs++;
+        }
         return numBombs;
     }
 }
