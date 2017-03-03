@@ -44,21 +44,32 @@ public void setBombs()
 public void draw ()
 {
     background( 0 );
-    if(isWon())
+    if(isWon()==true)
         displayWinningMessage();
 }
 public boolean isWon()
 {
     //your code here
-    return false;
+    for (int i =0; i<NUM_ROWS;i++)
+        for(int j=0;j<NUM_COLS;j++)
+            if(!bombs.contains(buttons[i][j])&&!buttons[i][j].isClicked())
+                return false;
+    return true;
 }
 public void displayLosingMessage()
 {
     //your code here
+    for(int i=0;i<NUM_ROWS;i++)
+      for(int j=0;j<NUM_COLS;j++)
+        if(bombs.contains(buttons[i][j]))
+                fill(255, 0,0);
+                text("Better luck next time!",200,200);
 }
 public void displayWinningMessage()
 {
     //your code here
+    fill(255);
+    text("Good Job! You won!", 200,450);
 }
 
 public class MSButton
@@ -102,24 +113,28 @@ public class MSButton
             displayLosingMessage();
         }
         else if (countBombs(r,c)>0) {
-            setLabel(""+countBombs(r,c));           
+            setLabel(""+(countBombs(r,c)));           
         }
         else
         {
             if(isValid(r+1,c) && buttons[r+1][c].isClicked()==false)
+            {
                 buttons[r+1][c].mousePressed();
-        }
-        {
+            }
             if(isValid(r,c+1) && buttons[r][c+1].isClicked()==false)
+            {
                 buttons[r][c+1].mousePressed();
-        }
-        {
+            }
             if(isValid(r-1,c) && buttons[r-1][c].isClicked()==false)
+            {
+
                 buttons[r-1][c].mousePressed();
-        }
-        {
+            }
+
             if(isValid(r,c-1) && buttons[r][c-1].isClicked()==false)
+            {
                 buttons[r][c-1].mousePressed();
+            }
         }
     }
 
@@ -154,35 +169,35 @@ public class MSButton
     {
         int numBombs = 0;
         //your code here
-        if(isValid(row,col+1) && isMarked() == true)
+        if(isValid(row,col+1) && bombs.contains(buttons[row][col+1]))
         {
             numBombs++;
         }
-        if(isValid(row+1,col) && isMarked() == true)
+        if(isValid(row+1,col) && bombs.contains(buttons[row+1][col]))
         {
             numBombs++;
         }
-        if(isValid(row-1,col) && isMarked() == true)
+        if(isValid(row-1,col) && bombs.contains(buttons[row-1][col]))
         {
             numBombs++;
         }
-        if(isValid(row,col-1) && isMarked() == true)
+        if(isValid(row,col-1) && bombs.contains(buttons[row][col-1]))
         {
             numBombs++;
         }
-        if(isValid(row-1,col-1) && isMarked() == true)
+        if(isValid(row-1,col-1) && bombs.contains(buttons[row-1][col-1]))
         {
             numBombs++;
         }
-        if(isValid(row+1,col+1) && isMarked() == true)
+        if(isValid(row+1,col+1) && bombs.contains(buttons[row+1][col+1]))
         {
             numBombs++;
         }
-        if(isValid(row+1,col-1) && isMarked() == true)
+        if(isValid(row+1,col-1) && bombs.contains(buttons[row+1][col-1]))
         {
             numBombs++;
         }
-        if(isValid(row-1,col+1) && isMarked() == true)
+        if(isValid(row-1,col+1) && bombs.contains(buttons[row-1][col+1]))
         {
             numBombs++;
         }
