@@ -31,7 +31,7 @@ void setup ()
 }
 public void setBombs()
 {
-    for(int i = 0;i<=20;i++)
+    for(int i = 0;i<=60;i++)
     {
      int row = (int)(Math.random()*NUM_ROWS);
      int col = (int)(Math.random()*NUM_COLS);
@@ -62,7 +62,8 @@ public void displayLosingMessage()
     for(int i=0;i<NUM_ROWS;i++)
       for(int j=0;j<NUM_COLS;j++)
         if(bombs.contains(buttons[i][j]))
-                fill(255, 0,0);
+                buttons[i][j].setLabel("RIP");
+                fill(0);
                 text("Better luck next time!",200,200);
 }
 public void displayWinningMessage()
